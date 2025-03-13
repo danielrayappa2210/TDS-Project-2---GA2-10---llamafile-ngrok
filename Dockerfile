@@ -1,7 +1,7 @@
-FROM docker:20.10-dind
+FROM ubuntu:latest
 
-# Install ngrok and jq
-RUN apt-get update && apt-get install -y wget tar jq
+# Install necessary tools
+RUN apt-get update && apt-get install -y docker.io wget tar jq
 
 # Download and install ngrok
 RUN wget https://bin.equinox.io/linux/amd64/ngrok-stable && \
