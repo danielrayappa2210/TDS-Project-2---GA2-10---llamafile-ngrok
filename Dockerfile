@@ -3,8 +3,8 @@ FROM debian:bookworm-slim
 # Install necessary tools
 RUN apt update && apt install -y wget curl ca-certificates
 
-# Test downloading the file with curl (basic version without retries or verbosity)
-RUN curl -L -o /app/llama.llamafile "https://huggingface.co/Mozilla/Llama-3.2-1B-Instruct-llamafile/resolve/main/Llama-3.2-1B-Instruct.Q6_K.llamafile" || (echo "Download failed" && exit 1)
+# Try downloading the file directly with curl (no retries or complex logic)
+RUN curl -L -o /app/llama.llamafile "https://huggingface.co/Mozilla/Llama-3.2-1B-Instruct-llamafile/resolve/main/Llama-3.2-1B-Instruct.Q6_K.llamafile"
 
 # Make the Llamafile executable
 RUN chmod +x /app/llama.llamafile
