@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 # Install necessary tools
-RUN apt-get update && apt-get install -y docker.io wget tar jq
+RUN apt-get update && apt-get install -y docker.io wget tar jq curl
 
 # Download and install ngrok
 RUN wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz -O ngrok.tgz && \
