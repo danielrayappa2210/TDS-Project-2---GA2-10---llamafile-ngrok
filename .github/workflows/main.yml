@@ -12,11 +12,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Check network access before building Docker image
-      - name: Check network access
-        run: |
-          curl -v https://google.com || (echo "Network check failed" && exit 1)
-
       # Build and tag Docker image with network flag to ensure connectivity
       - name: Build and tag Docker image
         run: docker build --network=host -t ${{ secrets.DOCKER_USERNAME }}/tds-project-2:${{ github.sha }} .
