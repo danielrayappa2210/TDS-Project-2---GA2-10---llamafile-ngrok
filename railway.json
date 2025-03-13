@@ -4,8 +4,12 @@
     {
       "type": "web",
       "name": "llamafile-service",
-      "rootDir": ".",
-      "startCommand": "./your-llamafile --server --host 0.0.0.0 --port 8000"
+      "build": {
+        "dockerfile": "Dockerfile"
+      },
+      "env": {},
+      "disk": {},
+      "startCommand": ""
     }
   ]
 }
