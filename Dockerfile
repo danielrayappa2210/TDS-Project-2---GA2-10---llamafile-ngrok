@@ -20,7 +20,7 @@ COPY --from=builder /llama_app/llama.llamafile .
 
 RUN apt-get update -y
 RUN apt-get install -y python3 python3-pip
-RUN pip3 install fastapi
+RUN pip3 install --break-system-packages fastapi
 RUN pip3 install uvicorn
 RUN pip3 install requests
 RUN pip3 install Jinja2
