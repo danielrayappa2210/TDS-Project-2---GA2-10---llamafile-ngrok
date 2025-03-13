@@ -1,15 +1,23 @@
-FROM debian:bookworm-slim  
+FROM debian:bookworm-slim AS builder
 
-# Install necessary tools
-RUN apt update && apt install -y wget curl ca-certificates  
+WORKDIR /llama_app
 
-# Download and set up the Llamafile
-RUN curl -L -o /app/llama.llamafile "https://huggingface.co/Mozilla/Llama-3.2-1B-Instruct-llamafile/resolve/main/Llama-3.2-1B-Instruct.Q6_K.llamafile" \
-    || (echo "Download failed" && exit 1) \
-    && chmod +x /app/llama.llamafile  
+RUN apt-get update && \
+        apt-get install -y --no-install-recommends \
+        wget \
+        vim \
+        ca-certificates && \
+        wget https://huggingface.co/Mozilla/Llama-3.2-1B-Instruct-llamafile/resolve/main/Llama-3.2-1B-Instruct.Q6_K.llamafile -O llama.llamafile && \
+        chmod +x llama.llamafile && \
+        apt-get purge -y --auto-remove wget && \
+        apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/* /usr/share/doc/* /usr/share/man/*
 
-# Expose Railway's assigned port dynamically
-EXPOSE $PORT  
+FROM debian:bookworm-slim
 
-# Run the Llamafile server on the assigned port
-CMD ["/app/llama.llamafile", "--server", "--host", "0.0.0.0", "--port", "$PORT"]
+WORKDIR /llama_app
+
+COPY --from=builder /llama_app/llama.llamafile .
+
+EXPOSE 9090
+
+CMD ["/bin/bash", "./llama.llamafile", "--server", "--nobrowser", "--host", "0.0.0.0", "--port", "9090", "--parallel", "2"]
