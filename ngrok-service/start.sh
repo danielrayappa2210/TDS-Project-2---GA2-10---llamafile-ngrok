@@ -1,7 +1,5 @@
 #!/bin/bash
-
-# Start Docker daemon
-dockerd &
+sudo -E dockerd &
 
 # Run llama-server container from Docker Hub
 docker run -d --name llama-container -p 9090:9090 danielrayappa/llama-server:latest
