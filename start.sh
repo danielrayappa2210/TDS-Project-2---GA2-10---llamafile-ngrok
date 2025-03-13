@@ -1,12 +1,7 @@
 #!/bin/bash
 
-# Run Docker container in the background
-docker run -d --name llama-container -p 9090:9090 llama-server
-
-# Install ngrok (if needed)
-wget https://bin.equinox.io/linux/amd64/ngrok-stable
-tar -xvzf ngrok-stable
-mv ngrok /usr/local/bin/
+# Run llama-server container from Docker Hub
+docker run -d --name llama-container -p danielrayappa/llama-server:latest
 
 # Run ngrok to tunnel the connection
 ngrok authtoken $NGROK_AUTH_TOKEN
@@ -15,7 +10,7 @@ ngrok authtoken $NGROK_AUTH_TOKEN
 ngrok http 9090 --log="stdout" &
 
 # Get the ngrok URL
-sleep 5
+sleep 10
 
 ngrok_url=$(curl -s localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
 
