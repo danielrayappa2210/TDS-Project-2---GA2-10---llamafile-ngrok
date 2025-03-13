@@ -18,16 +18,6 @@ WORKDIR /llama_app
 
 COPY --from=builder /llama_app/llama.llamafile .
 
-RUN apt-get update -y && apt-get install -y python3 python3-venv python3-pip
-RUN python3 -m venv /venv
-ENV PATH="/venv/bin:$PATH"
-RUN pip install --upgrade pip
-RUN pip install fastapi uvicorn requests Jinja2
-
-COPY app.py .
-COPY templates ./templates
-
-EXPOSE 9090
 EXPOSE 8000
 
-CMD ["python3", "app.py"]
+CMD ["./llama.llamafile", "--server", "--host", "0.0.0.0", "--port", "8000", "--parallel", "2"]
