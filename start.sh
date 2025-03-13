@@ -9,7 +9,7 @@ docker run -d --name llama-container -p 9090:9090 llama-server
 # mv ngrok /usr/local/bin/
 
 # Run ngrok to tunnel the connection
-ngrok authtoken YOUR_NGROK_AUTH_TOKEN
+ngrok authtoken NGROK_AUTH_TOKEN
 
 # Expose port 9090
 ngrok http 9090 --log="stdout" &
