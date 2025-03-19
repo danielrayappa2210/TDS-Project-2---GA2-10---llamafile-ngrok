@@ -2,13 +2,13 @@
 FROM ubuntu:latest
 
 # Copy your script into the container
-COPY your_script.sh /app/your_script.sh
+COPY run_and_cleanup.sh /app/run_and_cleanup.sh
 
 # Make the script executable
-RUN chmod +x /app/your_script.sh
+RUN chmod +x /app/run_and_cleanup.sh
 
 # Set the working directory (optional, but good practice)
 WORKDIR /app
 
 # Run the script when the container starts
-CMD ["./your_script.sh"]
+CMD ["./run_and_cleanup.sh"]
